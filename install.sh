@@ -379,7 +379,7 @@ install() {
         return 5
     fi
 
-    sed -i 's/\/usr\/sbin\/uu\//\/data\/uu/g' "${MONITOR_FILE}"
+    sed -i 's/\/usr\/sbin\/uu/\/data\/uu/g' "${MONITOR_FILE}"
     
     start_monitor
     [ "$?" != "0" ] && return 6
