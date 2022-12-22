@@ -54,7 +54,7 @@ init_param() {
         ;;
     ${OPENWRT})
         URL_PREFIX="http://"
-        INSTALL_DIR="/usr/sbin/uu/"
+        INSTALL_DIR="/data/uu"
         MONITOR_FILE="${INSTALL_DIR}/${monitor_filename}"
         MONITOR_CONFIG="${INSTALL_DIR}/uuplugin_monitor.config"
         UNINSTALL_DOWNLOAD_URL="${URL_PREFIX}${UNINSTALL_DOWNLOAD_URL}${OPENWRT}"
@@ -368,6 +368,8 @@ install() {
     download "${UNINSTALL_DOWNLOAD_URL}" "${UNINSTALL_FILE}"
     [ "$?" != "0" ] && return 3
 
+    sed -i 's/\/usr\/sbin\/uu\//\/data\/uu/g' "${UNINSTALL_FILE}"
+    
     clean_up
     [ "$?" != "0" ] && return 4
 
@@ -377,6 +379,8 @@ install() {
         return 5
     fi
 
+    sed -i 's/\/usr\/sbin\/uu\//\/data\/uu/g' "${MONITOR_FILE}"
+    
     start_monitor
     [ "$?" != "0" ] && return 6
 
